@@ -299,9 +299,16 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`🔐 Admin login: http://localhost:${PORT}/api/admin/login`);
-});
+// Only start server if this file is run directly (not in tests)
+if (require.main === module) {
+  const server = app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+    console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+    console.log(`🔐 Admin login: http://localhost:${PORT}/api/admin/login`);
+  });
+  
+  module.exports = server;
+} else {
+  // Export just the app for testing
+  module.exports = app;
+}

@@ -8,15 +8,26 @@
     "dev": "nodemon server.js",
     "test": "jest --verbose --testTimeout=10000",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "seed": "node -e \"require('./server.js')\""
   },
   "jest": {
     "testEnvironment": "node",
     "testTimeout": 10000,
-    "setupFiles": ["dotenv/config"]
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ]
   },
-  "keywords": ["express", "sqlite", "api"],
+  "keywords": [
+    "express",
+    "sqlite",
+    "api"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
