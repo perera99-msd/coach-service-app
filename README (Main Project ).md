@@ -1,116 +1,65 @@
-## Coach Service Request App 🚌
+CoachExpress - Coach Service Management System 🚌
+A complete full-stack web application for managing coach service requests with customer frontend and admin dashboard.
 
-A full-stack web application for a coach company to manage trip requests with customer frontend and admin dashboard.
+✨ Features
+🎯 Customer Features
+Multi-step booking form with real-time validation
 
-🚀 Features
-Customer Features
-Submit trip requests with all required details (name, phone, pickup/dropoff locations, time, passengers, notes)
+Trip request submission with all required details
 
-Client-side form validation with user-friendly error messages
+Status tracking by phone number or email
+
+Mobile-responsive design for all devices
 
 Success/error feedback with clear messaging
 
-Responsive design that works on all devices
-
-Admin Features
+🔧 Admin Features
 Secure JWT authentication with token-based sessions
 
-View all trip requests with pagination (10 requests per page)
+Request management (approve, reject, schedule)
 
-Search functionality by customer name or phone number
+Driver & vehicle assignment with scheduling
 
-Filter by status (pending/approved/rejected/scheduled)
+Advanced search & filtering by name, phone, status
 
-Update request status with inline approve/reject actions
+Analytics dashboard with 7-day request chart
 
-Schedule trips with driver and vehicle assignment via modal interface
-
-Analytics dashboard showing requests per day for the last 7 days with visual chart
+Pagination for efficient data browsing
 
 🛠 Tech Stack
-Backend
-Node.js + Express.js - Runtime and web framework
+Backend: Node.js, Express.js, SQLite, JWT, bcryptjs
+Frontend: React 18, React Router, Axios, CSS3
+Testing: Jest, Supertest
+Tools: ESLint, Prettier, Nodemailer
 
-SQLite - Database with automatic initialization
-
-JWT - JSON Web Tokens for authentication
-
-bcryptjs - Password security
-
-CORS - Cross-origin resource sharing
-
-Jest + Supertest - Testing framework
-
-ESLint + Prettier - Code quality and formatting
-
-Frontend
-React.js 18 - UI framework with hooks
-
-React Router DOM - Client-side routing
-
-Axios - HTTP client for API calls
-
-CSS3 - Responsive styling with modern design
-
-📋 Prerequisites
+🚀 Quick Start
+Prerequisites
 Node.js (v14 or higher)
 
-npm or yarn package manager
+npm or yarn
 
-🏃‍♂️ Quick Start
-Backend Setup
+Installation
+Clone the repository
+git clone <https://github.com/perera99-msd/coach-service-app>
+cd coach-service-app
+
+Setup Backend
 cd backend
 npm install
 cp .env.example .env
-npm start
+npm run dev
 
-Backend server runs on http://localhost:5000
+Server runs on http://localhost:5000
 
-Frontend Setup
+Setup Frontend (in new terminal)
 cd frontend
 npm install
-npm start
+npm run dev
 
 Frontend runs on http://localhost:3000
 
-🔌 API Endpoints
-Public Endpoints
-POST /api/requests - Submit trip request (customer)
-
-POST /api/admin/login - Admin authentication
-
-GET /api/health - Health check endpoint
-
-Protected Endpoints (Require JWT)
-GET /api/requests - Get requests with search, pagination, and filtering
-
-PATCH /api/requests/:id - Update request status and schedule trips
-
-GET /api/drivers - Get available drivers list
-
-GET /api/vehicles - Get available vehicles list
-
-GET /api/analytics/daily - Get daily request analytics for last 7 days
-
-GET /api/requests/:id - Get single request with assignment details
-
-🗄️ Database Schema
-Tables
-service_requests - id, created_at, customer_name, phone, pickup_location, dropoff_location, pickup_time, passengers, notes, status
-
-drivers - id, name, phone
-
-vehicles - id, plate, capacity
-
-assignments - id, request_id, driver_id, vehicle_id, scheduled_time
-
-Seed Data (Auto-populated)
-3 Drivers: John Driver, Jane Smith, Mike Johnson
-
-3 Vehicles: ABC123 (4 seats), XYZ789 (6 seats), DEF456 (8 seats)
-
-🔐 Demo Credentials
-Admin Access:
+🔐 Default Login
+Admin Panel: http://localhost:3000/admin/login
 
 Username: admin
 
@@ -119,157 +68,161 @@ Password: admin123
 📁 Project Structure
 coach-service-app/
 ├── backend/
-│ ├── server.js
+│ ├── server.js # Main Express server
+│ ├── emailService.js # Email notifications
+│ ├── app.test.js # Test suite
 │ ├── package.json
-│ ├── .env.example
-│ ├── .eslintrc.js
-│ ├── app.test.js
-│ └── trip.db
+│ └── .env.example # Environment template
 ├── frontend/
 │ ├── src/
-│ │ ├── components/
+│ │ ├── components/ # React components
 │ │ │ ├── CustomerForm.jsx
 │ │ │ ├── AdminLogin.jsx
-│ │ │ └── AdminDashboard.jsx
+│ │ │ ├── AdminDashboard.jsx
+│ │ │ ├── StatusCheck.jsx
+│ │ │ └── ScheduleManager.jsx
 │ │ ├── App.jsx
 │ │ └── index.jsx
 │ ├── package.json
-│ └── public/
+│ └── vite.config.js
 └── README.md
 
-🧪 Testing
-Test Suite Includes:
-Pure function tests for request validation
+🗄️ Database Schema
+Tables:
 
-API route tests for all endpoints
+service_requests - Trip requests from customers
+
+drivers - Available drivers with contact info
+
+vehicles - Coach vehicles with capacity
+
+assignments - Driver/vehicle assignments
+
+Auto-seeded with Sri Lankan data:
+
+5 Sri Lankan drivers (Amal Perera, Nimal Fernando, etc.)
+
+5 vehicles with Sri Lankan plates (CAB-1234, CA-5678, etc.)
+
+🔌 API Endpoints
+Public Endpoints
+POST /api/requests - Submit trip request
+
+GET /api/requests/phone/:phone - Check status by phone
+
+GET /api/requests/email/:email - Check status by email
+
+POST /api/admin/login - Admin authentication
+
+GET /api/health - Health check
+
+Protected Endpoints (Admin)
+GET /api/requests - Get requests with pagination
+
+PATCH /api/requests/:id - Update request status
+
+GET /api/drivers - Get drivers list
+
+GET /api/vehicles - Get vehicles list
+
+GET /api/analytics/daily - 7-day analytics data
+
+🧪 Testing
+cd backend
+npm test # Run test suite
+npm run test:coverage # Test coverage report
+
+Test Coverage:
+
+Pure function validation tests
+
+API endpoint integration tests
 
 Authentication flow tests
 
-Database integration tests
-
-Run Tests:
-cd backend
-npm test
-npm run test:watch
-npm run test:coverage
-
-Test Results
-Test Suites: 1 passed, 1 total
-Tests: 10 passed, 10 total
-Time: 1.558 s
+Database operation tests
 
 🚀 Development Scripts
 Backend Scripts
-npm start
-npm run dev
-npm test
-npm run test:watch
-npm run lint
-npm run lint:fix
-npm run format
+npm start # Start production server
+npm run dev # Start development server with nodemon
+npm test # Run test suite
+npm run test:watch # Run tests in watch mode
+npm run test:coverage # Generate test coverage report
+npm run lint # Run ESLint
+npm run lint:fix # Auto-fix linting issues
 
 Frontend Scripts
-npm start
-npm run build
-npm test
+npm run dev # Start development server
+npm run build # Create production build
+npm run preview # Preview production build
 
 ✅ Quality Gates Met
-Commit early and often with clear messages
+✅ Commit early & often with clear messages
 
-Unit tests for pure function and API routes
+✅ Unit tests for pure functions & API routes
 
-Logging middleware (method, path, status, duration)
+✅ Logging middleware (method, path, status, duration)
 
-Linter and formatter with run scripts
+✅ ESLint & Prettier with run scripts
 
-Environment variables with safe defaults
+✅ Environment variables with safe defaults
 
-Clear separation of concerns
+✅ Input validation & comprehensive error handling
 
-Input validation and error handling
+✅ Security measures (JWT, CORS, input sanitization)
 
-Security measures implemented
+✅ Mobile-responsive design
 
-Documentation complete
+✅ Clear separation of concerns
 
-🔒 Security Features
-JWT token-based authentication
+🌟 Advanced Features
+Multi-step form wizard for better UX
 
-Environment variables for sensitive data
+Real-time analytics with visual chart
 
-Input validation and sanitization
+Mobile-optimized admin interface with card views
 
-CORS configuration
+Sri Lankan context with local drivers/vehicles
 
-SQL injection protection
+Email service integration (configurable)
 
-Password hashing
-
-📱 Responsive Design
-The application features a fully responsive design that works seamlessly on:
-
-Desktop computers
-
-Tablets
-
-Mobile devices
-
-🎯 User Workflows
-Customer Journey:
-Visit application homepage
-
-Fill out trip request form with validation
-
-Submit and receive instant confirmation
-
-Admin Workflow:
-Login with secure credentials
-
-View dashboard with analytics and request overview
-
-Search and filter requests as needed
-
-Update status with inline actions
-
-Schedule trips by assigning drivers and vehicles
-
-🚀 Deployment Ready
-The application includes all necessary configurations for production deployment:
-
-Environment-specific configuration
-
-Health check endpoints
-
-Comprehensive error handling
-
-Database migration and seeding system
-
-Production build scripts
+Database reset utility for development
 
 🐛 Troubleshooting
 Common Issues & Solutions:
-Port Already in Use
+
+Port Already in Use:
 Change port in backend/.env file
 PORT=5001
 
-Database Connection Issues
+Database Connection Issues:
 Delete and recreate database
 rm backend/trip.db
 npm start
 
-CORS Errors
-
+CORS Errors:
 Verify backend is running on port 5000
-
 Check frontend API calls use correct URL
 
-Authentication Issues
-
+Authentication Issues:
 Clear browser localStorage
-
 Verify JWT_SECRET in environment variables
 
+Build Issues:
+Delete node_modules and reinstall
+rm -rf node_modules
+npm install
+
 📞 Support
+The application includes comprehensive documentation:
+
+SETUP_GUIDE.md - Detailed setup instructions
+
+In-code comments for complex logic
+
+Error handling with user-friendly messages
+
 For technical issues:
 
 Check browser console for error messages
@@ -280,7 +233,36 @@ Ensure required ports (3000, 5000) are available
 
 Check backend logs for detailed error information
 
+🔒 About .env.example Files
+Yes, .env.example IS uploaded to GitHub - and this is CORRECT! ✅
+
+Why .env.example is in the repo:
+Safe template for environment variables
+
+Documentation of required configuration
+
+No sensitive data - only variable names with example values
+
+Helps other developers setup the project quickly
+
+What's in .env.example:
+PORT=5000
+JWT_SECRET=your-super-secret-jwt-key-change-in-production
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-specific-password
+FRONTEND_URL=http://localhost:3000
+NODE_ENV=development
+
+Security Note:
+Actual .env files are gitignored (see .gitignore)
+
+No real passwords/keys in the example file
+
+Company will create their own .env from the template
+
+This follows security best practices while making setup easy for reviewers!
+
 📄 License
 ISC License
 
-Built with ❤️ for OCTICK Intern Assessment • Complete full-stack implementation
+Built with ❤️ for OCTICK Intern Assessment • Complete full-stack implementation demonstrating production-ready development practices.
